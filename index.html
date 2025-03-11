@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer Box Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            background: white;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Answer Box</h2>
+        <input type="text" id="answer" placeholder="Enter your answer here">
+        <button onclick="submitAnswer()">Submit</button>
+        <p id="response"></p>
+    </div>
+
+    <script>
+        function submitAnswer() {
+            const answer = document.getElementById('answer').value;
+            const response = document.getElementById('response');
+
+            if (answer) {
+                response.textContent = `You answered: ${answer}`;
+            } else {
+                response.textContent = 'Please enter an answer.';
+            }
+        }
+    </script>
+</body>
+</html>
