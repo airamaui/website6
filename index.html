@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +15,7 @@
             margin: 0;
             background-color: #f9f9f9;
         }
+
         .container {
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -21,12 +23,14 @@
             border-radius: 12px;
             background: white;
         }
+
         input[type="text"] {
             padding: 10px;
             width: 300px;
             border: 1px solid #ccc;
             border-radius: 8px;
         }
+
         button {
             padding: 10px 20px;
             margin-top: 10px;
@@ -36,11 +40,13 @@
             border-radius: 8px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #45a049;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h2>Answer Box</h2>
@@ -50,16 +56,35 @@
     </div>
 
     <script>
+        const scriptURL = "YOUR_WEB_APP_URL_HERE";
+
         function submitAnswer() {
             const answer = document.getElementById('answer').value;
             const response = document.getElementById('response');
 
-            if (answer) {
-                response.textContent = `You answered: ${answer}`;
-            } else {
-                response.textContent = 'Please enter an answer.';
+            if (!answer) {
+                response.textContent = "Please enter an answer.";
+                return;
             }
+
+            fetch(scriptURL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ answer: answer })
+            })
+                .then(() => {
+                    response.textContent = "Answer submitted!";
+                    document.getElementById('answer').value = "";
+                })
+                .catch(() => {
+                    response.textContent = "Error submitting answer.";
+                });
         }
     </script>
+
 </body>
+
 </html>
