@@ -1,90 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Answer Box Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f9f9f9;
-        }
-
-        .container {
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            border-radius: 12px;
-            background: white;
-        }
-
-        input[type="text"] {
-            padding: 10px;
-            width: 300px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-        }
-
-        button {
-            padding: 10px 20px;
-            margin-top: 10px;
-            border: none;
-            background-color: #4CAF50;
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <title>Submit Answer</title>
 </head>
-
 <body>
-    <div class="container">
-        <h2>Answer Box</h2>
-        <input type="text" id="answer" placeholder="Enter your answer here">
-        <button onclick="submitAnswer()">Submit</button>
-        <p id="response"></p>
-    </div>
+    <h2>Submit Your Answers</h2>
+    <form id="answerForm">
+        <label for="answer1">Answer 1:</label>
+        <input type="text" id="answer1" name="answer1" required>
+        <br><br>
+
+        <label for="answer2">Answer 2:</label>
+        <input type="text" id="answer2" name="answer2">
+        <br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <p id="responseMessage" style="color: green; display: none;">Submission successful!</p>
 
     <script>
-        const scriptURL = https://script.google.com/macros/s/AKfycbxTWNXUGOzgyhoizpCjP2DBg6OkqsX1lafEJ5eVt-86HCgvgk7EsIVEX5z1aWW4PsYM/exec;
+        document.getElementById("answerForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent page reload
 
-        function submitAnswer() {
-            const answer = document.getElementById('answer').value;
-            const response = document.getElementById('response');
-
-            if (!answer) {
-                response.textContent = "Please enter an answer.";
-                return;
-            }
+            const scriptURL = "YOUR_WEB_APP_URL_HERE"; // Replace with your Web App URL
+            const formData = {
+                answer1: document.getElementById("answer1").value,
+                answer2: document.getElementById("answer2").value
+            };
 
             fetch(scriptURL, {
                 method: "POST",
-                mode: "no-cors",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ answer: answer })
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
             })
-                .then(() => {
-                    response.textContent = "Answer submitted!";
-                    document.getElementById('answer').value = "";
-                })
-                .catch(() => {
-                    response.textContent = "Error submitting answer.";
-                });
-        }
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    document.getElementById("responseMessage").style.display = "block";
+                    document.getElementById("answerForm").reset(); // Clear form after submission
+                }
+            })
+            .catch(error => console.error("Error!", error));
+        });
     </script>
-
 </body>
-
 </html>
