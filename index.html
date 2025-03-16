@@ -21,28 +21,27 @@
 
     <p id="responseMessage" style="color: green; display: none;">Submission successful!</p>
 
-    <script>
-        document.getElementById("answerForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent page reload
+<script>
+    document.getElementById("answerForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent page reload
 
-            const scriptURL = "https://script.google.com/macros/s/AKfycbyfmRjNHIkxoTIrFycnfgNY_27yAnSr9306-Q1syY6SG9Dy5o8fZXiuyP6wFqRQ3hBB/exec"
-; // Replace with your Web App URL
-            const formData = {
-                answer1: document.getElementById("answer1").value,
-                answer2: document.getElementById("answer2").value
-            };
+        const scriptURL = "https://script.google.com/macros/s/AKfycbyfmRjNHIkxoTIrFycnfgNY_27yAnSr9306-Q1syY6SG9Dy5o8fZXiuyP6wFqRQ3hBB/exec"; // Web App URL
+        const formData = {
+            answer1: document.getElementById("answer1").value,
+            answer2: document.getElementById("answer2").value
+        };
 
-fetch(scriptURL, { method: "POST", body: JSON.stringify(formData) })
-.then(response => response.json()) 
-.then(data => console.log(data))
-.catch(error => console.error("Error!", error));
+        fetch(scriptURL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => console.log("Success!", data))
+        .catch(error => console.error("Error!", error));
+    });
+</script>
 
-
-                }
-            })
-            .catch(error => console.error("Error!", error));
-        });
-    </script>
 
     <script>
     function submitAnswers() {
