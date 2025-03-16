@@ -32,16 +32,10 @@
                 answer2: document.getElementById("answer2").value
             };
 
-            fetch(scriptURL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === "success") {
-                    document.getElementById("responseMessage").style.display = "block";
-                    document.getElementById("answerForm").reset(); // Clear form after submission
+fetch(scriptURL, { method: "POST", body: JSON.stringify(formData) // <-- Missing closing `})`
+.then(response => response.json()) 
+.then(data => console.log(data));
+
                 }
             })
             .catch(error => console.error("Error!", error));
