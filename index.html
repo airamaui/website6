@@ -32,7 +32,7 @@
                 answer2: document.getElementById("answer2").value
             };
 
-fetch(scriptURL, { method: "POST", body: JSON.stringify(formData) // <-- Missing closing `})`
+fetch(scriptURL, { method: "POST", body: JSON.stringify(formData) })
 .then(response => response.json()) 
 .then(data => console.log(data));
 
